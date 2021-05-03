@@ -1,0 +1,272 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Personal Library API",
+        "version": "1.0.0",
+        "description": "The Personal Library API allows users to managed their own personal library of\nbooks.",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+    },
+    "paths": {
+        "/books": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of books successfully returned."
+                    }
+                },
+                "description": "returns a list of books available."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Book"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Book was added."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "addBook",
+                "summary": "Add a book to the library",
+                "description": "This operation is used to add a book to the library."
+            }
+        },
+        "/books/{bookId}": {
+            "summary": "Path used to manage a single Book.",
+            "description": "The REST endpoint/path used to get, update, and delete single instances of an `Book`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns a single `Book`."
+                    }
+                },
+                "operationId": "getBook",
+                "summary": "Get a Book",
+                "description": "Gets the details of a single instance of a `Book`."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Updated `Book` information.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Book"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "updateBook",
+                "summary": "Update a Book",
+                "description": "Updates an existing `Book`."
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "deleteBook",
+                "summary": "Delete a Book",
+                "description": "Deletes an existing `Book`."
+            },
+            "parameters": [
+                {
+                    "name": "bookId",
+                    "description": "A unique identifier for a `Book`.",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Author": {
+                "description": "",
+                "required": [
+                    "givenName",
+                    "familyName",
+                    "dateOfBirth",
+                    "nationality"
+                ],
+                "type": "object",
+                "properties": {
+                    "familyName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "format": "date",
+                        "description": "",
+                        "type": "string"
+                    },
+                    "dateOfDeath": {
+                        "format": "date",
+                        "description": "",
+                        "type": "string"
+                    },
+                    "nationality": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "familyName": "Poe",
+                    "givenName": "Edgar Allan",
+                    "dateOfBirth": "1809-01-19",
+                    "dateOfDeath": "1849-10-07",
+                    "nationality": "American"
+                }
+            },
+            "Book": {
+                "description": "",
+                "required": [
+                    "title",
+                    "format",
+                    "authors",
+                    "language",
+                    "numberOfPages",
+                    "publishedOn",
+                    "publisher"
+                ],
+                "type": "object",
+                "properties": {
+                    "numberOfPages": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "format": {
+                        "description": "",
+                        "enum": [
+                            "PAPERBACK",
+                            "KINDLE_EDITION",
+                            "PDF",
+                            "DOC",
+                            "AUDIOBOOK"
+                        ],
+                        "type": "string"
+                    },
+                    "isbn": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "language": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "series": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "publishedOn": {
+                        "format": "date",
+                        "description": "",
+                        "type": "string"
+                    },
+                    "publisher": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "keywords": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "authors": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Error": {
+                "title": "Root Type for Error",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "code": 1223,
+                    "message": "Something went wrong!"
+                }
+            }
+        },
+        "responses": {
+            "ServerError": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                },
+                "description": ""
+            }
+        }
+    }
+}
