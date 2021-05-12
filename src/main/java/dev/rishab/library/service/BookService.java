@@ -21,12 +21,12 @@ import lombok.Setter;
 public class BookService {
 
 	@Inject
-	private DatabaseStub database;
+	DatabaseStub database;
 	
 	@Getter
 	@Setter
-	private Map<String, Book> books = database.getBooks();
-
+	private Map<String, Book> books;
+	
 	public List<Book> fetchAllBooks() {
 		return new ArrayList<Book>(books.values());
 	}
@@ -51,8 +51,10 @@ public class BookService {
 	}
 
 	@PostConstruct
-	private void seed() {
-		Book book1 = new Book();
+	void seed() {
+        books = database.getBooks();
+
+        Book book1 = new Book();
 		book1.setIsbn(Generator.generateIsbn());
 		book1.setNumberOfPages(326);
 		book1.setDescription(

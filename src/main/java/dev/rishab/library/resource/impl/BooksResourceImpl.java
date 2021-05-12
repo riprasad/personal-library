@@ -34,7 +34,7 @@ import dev.rishab.library.service.BookService;
 public class BooksResourceImpl implements BooksResource {
 
 	@Inject
-	private BookService bookService;
+	BookService bookService;
 
 	/**
 	 * @see dev.rishab.library.resource.BooksResource#listBooks()
