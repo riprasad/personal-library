@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @ApplicationScoped
 @NoArgsConstructor
-public class BookService {
+public class LibraryService {
 
 	@Inject
 	DatabaseStub database;

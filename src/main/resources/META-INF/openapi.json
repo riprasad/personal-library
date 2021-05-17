@@ -27,6 +27,8 @@
                         "description": "List of books successfully returned."
                     }
                 },
+                "operationId": "listBooks",
+                "summary": "Get a list of all books",
                 "description": "returns a list of books available."
             },
             "post": {
@@ -42,6 +44,13 @@
                 },
                 "responses": {
                     "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        },
                         "description": "Book was added."
                     },
                     "500": {
@@ -110,6 +119,142 @@
                     "description": "A unique identifier for a `Book`.",
                     "schema": {
                         "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/series": {
+            "summary": "Collection of book series.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Series"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful return."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "listSeries",
+                "summary": "Get a list of book series",
+                "description": "Returns a list of all book series in the library."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddSeries"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Series"
+                                }
+                            }
+                        },
+                        "description": "Series added."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "addSeries",
+                "summary": "Add a book series"
+            }
+        },
+        "/series/{seriesId}": {
+            "summary": "Manage a single book series",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Series"
+                                }
+                            }
+                        },
+                        "description": "Successful return."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "getSeries",
+                "summary": "Get meta-data about a book series"
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": "Series successfully deleted."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "deleteSeries",
+                "summary": "Delete a series"
+            },
+            "parameters": [
+                {
+                    "name": "seriesId",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/series/{seriesId}/books": {
+            "summary": "Manage the books in a series",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful return."
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                },
+                "operationId": "getBooksInSeries",
+                "summary": "Gets the books in a series"
+            },
+            "parameters": [
+                {
+                    "name": "seriesId",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
                     },
                     "in": "path",
                     "required": true
@@ -253,6 +398,51 @@
                 "example": {
                     "code": 1223,
                     "message": "Something went wrong!"
+                }
+            },
+            "Series": {
+                "title": "Root Type for Series",
+                "description": "",
+                "required": [
+                    "author",
+                    "name",
+                    "seriesId"
+                ],
+                "type": "object",
+                "properties": {
+                    "seriesId": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/Author"
+                    }
+                },
+                "example": {
+                    "seriesId": 12345,
+                    "name": "Harry Potter",
+                    "author": "JK Rowling"
+                }
+            },
+            "AddSeries": {
+                "title": "Root Type for AddSeries",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "authorId": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "name": "Harry Potter",
+                    "authorId": 12345
                 }
             }
         },
