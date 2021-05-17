@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import dev.rishab.library.beans.Book;
 import dev.rishab.library.beans.Book.Format;
 import dev.rishab.library.database.DatabaseStub;
+import dev.rishab.library.exception.DataNotFoundException;
 import dev.rishab.library.util.Generator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,17 +23,21 @@ public class LibraryService {
 
 	@Inject
 	DatabaseStub database;
-	
+
 	@Getter
 	@Setter
 	private Map<String, Book> books;
-	
+
 	public List<Book> fetchAllBooks() {
 		return new ArrayList<Book>(books.values());
 	}
 
 	public Book fetchBookById(String isbn) {
-		return books.get(isbn);
+		Book book = books.get(isbn);
+		if (book == null) {
+			throw new DataNotFoundException("Book with isbn " + isbn + " doesn't exist!");
+		}
+		return book;
 
 	}
 
@@ -52,9 +57,9 @@ public class LibraryService {
 
 	@PostConstruct
 	void seed() {
-        books = database.getBooks();
+		books = database.getBooks();
 
-        Book book1 = new Book();
+		Book book1 = new Book();
 		book1.setIsbn(Generator.generateIsbn());
 		book1.setNumberOfPages(326);
 		book1.setDescription(

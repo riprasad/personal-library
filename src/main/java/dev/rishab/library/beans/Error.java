@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 
 /**
  * Root Type for Error
@@ -17,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "code",
     "message"
 })
+@AllArgsConstructor
+@NoArgsConstructor
 public class Error {
 
     @JsonProperty("code")
