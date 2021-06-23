@@ -1,8 +1,9 @@
 package dev.rishab.library.resource;
 
 import dev.rishab.library.beans.AddSeries;
-import dev.rishab.library.beans.Book;
 import dev.rishab.library.beans.Series;
+import dev.rishab.library.entity.Book;
+
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

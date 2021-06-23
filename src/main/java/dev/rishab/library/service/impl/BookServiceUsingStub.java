@@ -1,4 +1,4 @@
-package dev.rishab.library.service;
+package dev.rishab.library.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,19 +7,20 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import dev.rishab.library.beans.Book;
-import dev.rishab.library.beans.Book.Format;
 import dev.rishab.library.database.DatabaseStub;
+import dev.rishab.library.entity.Book;
+import dev.rishab.library.entity.Book.Format;
 import dev.rishab.library.exception.DataNotFoundException;
+import dev.rishab.library.service.BookService;
 import dev.rishab.library.util.Generator;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @ApplicationScoped
-@NoArgsConstructor
-public class LibraryService {
+@Named("stub")
+public class BookServiceUsingStub implements BookService {
 
 	@Inject
 	DatabaseStub database;
@@ -51,8 +52,9 @@ public class LibraryService {
 		return book;
 	}
 
-	public Book deleteBook(String isbn) {
-		return books.remove(isbn);
+	public Boolean deleteBook(String isbn) {
+		books.remove(isbn);
+		return books.get(isbn) != null ? true : false;
 	}
 
 	@PostConstruct
