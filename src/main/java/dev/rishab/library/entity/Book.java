@@ -1,10 +1,16 @@
 
-package dev.rishab.library.beans;
+package dev.rishab.library.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
     "keywords",
     "authors"
 })
+@Entity
 public class Book {
 
     /**
@@ -45,6 +52,7 @@ public class Book {
      */
     @JsonProperty("description")
     @JsonPropertyDescription("")
+    @Column(columnDefinition="LONGVARCHAR")
     private String description;
     /**
      * 
@@ -59,6 +67,7 @@ public class Book {
      */
     @JsonProperty("isbn")
     @JsonPropertyDescription("")
+    @Id
     private String isbn;
     /**
      * 
@@ -73,6 +82,7 @@ public class Book {
      */
     @JsonProperty("series")
     @JsonPropertyDescription("")
+    @ElementCollection
     private List<String> series = new ArrayList<String>();
     /**
      * 
@@ -103,6 +113,7 @@ public class Book {
      */
     @JsonProperty("keywords")
     @JsonPropertyDescription("")
+    @ElementCollection
     private List<String> keywords = new ArrayList<String>();
     /**
      * 
@@ -111,6 +122,7 @@ public class Book {
      */
     @JsonProperty("authors")
     @JsonPropertyDescription("")
+    @ElementCollection
     private List<String> authors = new ArrayList<String>();
 
     /**

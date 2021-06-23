@@ -1,6 +1,5 @@
 package dev.rishab.library.resource;
 
-import dev.rishab.library.beans.Book;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,6 +9,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import dev.rishab.library.entity.Book;
 
 /**
  * A JAX-RS interface.  An implementation of this interface must be provided.

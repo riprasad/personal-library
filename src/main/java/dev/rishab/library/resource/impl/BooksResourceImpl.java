@@ -4,17 +4,19 @@ package dev.rishab.library.resource.impl;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import dev.rishab.library.beans.Book;
+import dev.rishab.library.entity.Book;
 import dev.rishab.library.resource.BooksResource;
-import dev.rishab.library.service.LibraryService;
+import dev.rishab.library.service.BookService;
 
 public class BooksResourceImpl implements BooksResource {
 
 	@Inject
-	LibraryService bookService;
+	@Named("panache")
+	BookService bookService;
 	
 	@Context
 	UriInfo uriInfo;
@@ -28,7 +30,7 @@ public class BooksResourceImpl implements BooksResource {
 	}
 
 	/**
-	 * @see dev.rishab.library.resource.BooksResource#addBook(dev.rishab.library.beans.Book)
+	 * @see dev.rishab.library.resource.BooksResource#addBook(dev.rishab.library.entity.Book)
 	 */
 	@Override
 	public Book addBook(Book data) {
@@ -60,7 +62,7 @@ public class BooksResourceImpl implements BooksResource {
 
 	/**
 	 * @see dev.rishab.library.resource.BooksResource#updateBook(java.lang.String,
-	 *      dev.rishab.library.beans.Book)
+	 *      dev.rishab.library.entity.Book)
 	 */
 	@Override
 	public void updateBook(String bookId, Book data) {

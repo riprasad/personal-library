@@ -21,10 +21,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dev.rishab.library.beans.AddSeries;
-import dev.rishab.library.beans.Book;
 import dev.rishab.library.beans.Series;
+import dev.rishab.library.entity.Book;
 import dev.rishab.library.resource.SeriesResource;
-import dev.rishab.library.service.LibraryService;
+import dev.rishab.library.service.impl.BookServiceUsingStub;
 
 /**
  * @author eric.wittmann@gmail.com
@@ -32,7 +32,7 @@ import dev.rishab.library.service.LibraryService;
 public class SeriesResourceImpl implements SeriesResource {
 
 	@Inject
-	LibraryService LibraryService;
+	BookServiceUsingStub LibraryService;
 
     /**
      * @see dev.rishab.library.resource.SeriesResource#listSeries()

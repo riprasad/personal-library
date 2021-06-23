@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 
 import dev.rishab.library.beans.Author;
-import dev.rishab.library.beans.Book;
+import dev.rishab.library.entity.Book;
 import lombok.Getter;
 
 @ApplicationScoped
